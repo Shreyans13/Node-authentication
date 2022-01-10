@@ -9,26 +9,6 @@ let userSchema = new mongoose.Schema({
   token: { type: String },
   resetPasswordToken: { type: String },
   resetPasswordExpiry: { type: Date },
-  categories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-    },
-  ],
 });
 
-userSchema.methods.removeFields = function () {
-  let obj = this.toObject();
-  const {
-    password,
-    token,
-    resetPasswordExpiry,
-    resetPasswordToken,
-    categories,
-    ...updatedObject
-  } = obj;
-  return updatedObject;
-};
-const model = mongoose.model("User", userSchema);
-
-module.exports = model;
+module.exports = mongoose.model("User", userSchema);

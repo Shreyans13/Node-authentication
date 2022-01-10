@@ -1,10 +1,9 @@
 <p align="center"><img src="./screenshots/0.png" width=200  align="center"></p>
 <h1 align="center">Havo</h1>
-<p align="center"><img align="center" src="https://api.travis-ci.com/travis-ci/travis-web.svg" alt="build:passed"></p>
+<!-- <p align="center"><img align="center" src="https://api.travis-ci.com/travis-ci/travis-web.svg" alt="build:passed"></p> -->
 
 # Getting started
 
-The backend written in Node JS for mobile application which is used to convert handwriting to speech via Machine Learning Library. This application is for the people who are unable to speak, by helping them save their daily conversation in the form of phrases. The server provides authentication via email OTP and JSON Web Token to help the user to secure their data. User can log on to multiple devices and stay logged in for a longer period of time.
 
 [🔥 Live Version](https://havobackend.herokuapp.com)
 
@@ -20,16 +19,14 @@ To get the Node server running locally:
 
 The mobile appliction which uses heroku
 
-[🔥 Live Version](https://github.com/200-DevelopersFound/Havo/blob/main/apk/app.apk?raw=true)
+[🔥 Live Version]()
 
-[:star: Github Repository](https://github.com/200-DevelopersFound/Havo)
+[:star: Github Repository]()
 
 ## Some Features
 
 - Fully secured application via JWT Token
 - Login from multiple mobile devices at the same time
-- Convert your handwriting to speech and text via machine learning
-- Save your daily conversation in the form of categories and dialogues
 
 ### Show some :heart: and :star: the repo to support the project.
 

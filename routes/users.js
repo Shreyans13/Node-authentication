@@ -150,12 +150,12 @@ router.post("/login", async (req, res) => {
       };
       req.token = await createToken(req);
       res.setHeader("x-auth-token", req.token);
-      const us = await dbUser.removeFields();
+      // const us = await dbUser.removeFields();
       const responseOb = {
         auth: true,
         token: req.token,
         message: "User found and Logged in",
-        user: us,
+        // user: us,
       };
       return res.status(200).json(responseOb);
     } else {
