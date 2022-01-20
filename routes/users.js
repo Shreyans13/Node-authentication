@@ -48,29 +48,21 @@ router.post("/create", async (req, res) => {
   #swagger.responses[500] = { schema: { error: "Error message" }, description: 'Internal Server Error occured' }
 */
   try {
-    const { username, email, password, fname, lname } = req.body;
-
-    if (!(username && email && password))
-      return res
-        .status(400)
-        .json({ error: "Username, Email, Password not found" });
-    else if (!username)
-      return res.status(400).json({ error: "Username not found" });
+    const { name, email, address, city, password } = req.body;
+    console.log(name, email, address, city, password);
+    if (!(name && email && password))
+      return res.status(400).json({ error: "Name, Email, Password not found" });
+    else if (!name) return res.status(400).json({ error: "Name not found" });
     else if (!email) return res.status(400).json({ error: "Email not Found" });
     else if (!password)
       return res.status(400).json({ error: "Password not Found" });
-    else if (!fname)
-      return res.status(400).json({ error: "First Name not Found" });
-    else if (!lname)
-      return res.status(400).json({ error: "Last Name not Found" });
+    else if (!address)
+      return res.status(400).json({ error: "Address not Found" });
+    else if (!city) return res.status(400).json({ error: "City not Found" });
 
     const dbUserEmail = await User.findOne({ email });
     if (dbUserEmail)
       return res.status(409).json({ error: "User Email already found." });
-
-    const dbUserName = await User.findOne({ username });
-    if (dbUserName)
-      return res.status(409).json({ error: "Username already used." });
 
     const emailVerified = await OTP.findOne({ email: email });
 
@@ -80,20 +72,19 @@ router.post("/create", async (req, res) => {
       return res.status(401).json({ error: "OTP not verified" });
 
     const newUser = await User.create({
-      firstName: fname,
-      lastName: lname,
-      username: username,
+      name: name,
+      email: email,
       email: email.toLowerCase(),
       password: await bcrypt.hash(password, 10),
+      city: city,
+      address: address,
     });
-
     req.user = newUser;
     req.auth = { id: req.user._id, register: true };
 
     req.token = await createToken(req);
     res.setHeader("x-auth-token", req.token);
     const responseOb = {
-      auth: true,
       token: req.token,
       message: "User created and Logged in",
     };
@@ -150,12 +141,10 @@ router.post("/login", async (req, res) => {
       };
       req.token = await createToken(req);
       res.setHeader("x-auth-token", req.token);
-      // const us = await dbUser.removeFields();
       const responseOb = {
-        auth: true,
         token: req.token,
         message: "User found and Logged in",
-        // user: us,
+        user: await dbUser.removeFields(),
       };
       return res.status(200).json(responseOb);
     } else {

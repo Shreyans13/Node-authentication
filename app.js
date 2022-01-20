@@ -8,7 +8,12 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const emailRouter = require("./routes/email");
 const loginRouter = require("./routes/loginActivity");
+const morganBody = require("morgan-body");
+const resturantRouter = require("./routes/resturants");
 
+// const seed = require("./seed");
+
+// seed();
 const app = express();
 const bodyParser = require("body-parser"); //add this
 
@@ -22,6 +27,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(bodyParser.json());
+app.use("/", resturantRouter);
+
+morganBody(app);
 
 app.use("/", indexRouter);
 app.use("/user", usersRouter);
